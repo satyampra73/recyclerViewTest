@@ -1,51 +1,47 @@
 package com.satyam.recyclerviewtest;
 
-import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
-public class ProgrammingAdapter extends RecyclerView.Adapter<ProgrammingAdapter.programmingViewHolder> {
-    String [] data;
-    Context context;
-    public ProgrammingAdapter(String [] data,Context context) {
-        this.data=data;
-        this.context=context;
+import java.util.ArrayList;
+
+public class ProgrammingAdapter extends RecyclerView.Adapter<ProgrammingAdapter.ProgrammingViewHolder> {
+ArrayList<Model> data;
+
+    public ProgrammingAdapter(ArrayList<Model> data) {
+        this.data = data;
+    }
+
+    public ProgrammingAdapter() {
     }
 
     @Override
-    public programmingViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        LayoutInflater layoutInflater=LayoutInflater.from(context);
-        View view=layoutInflater.inflate(R.layout.items,parent,false);
-        return new programmingViewHolder(view);
+    public ProgrammingViewHolder onCreateViewHolder( ViewGroup parent, int viewType) {
+        View view=LayoutInflater.from(parent.getContext()).inflate(R.layout.items,parent,false);
+        return new ProgrammingViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(programmingViewHolder holder, int position) {
-        String title=data[position];
-        holder.textView.setText(title);
+    public void onBindViewHolder( ProgrammingAdapter.ProgrammingViewHolder holder, int position) {
+     holder.name.setText(data.get(position).name);
 
     }
 
     @Override
     public int getItemCount() {
-        return data.length;
+        return data.size();
     }
 
-    public class programmingViewHolder extends RecyclerView.ViewHolder{
-        TextView textView;
-        ImageView imageView;
-
-        public programmingViewHolder(View itemView) {
+    class ProgrammingViewHolder extends RecyclerView.ViewHolder{
+TextView name;
+        public ProgrammingViewHolder( View itemView) {
             super(itemView);
-            textView=(TextView) itemView.findViewById(R.id.textView);
-            imageView=(ImageView) itemView.findViewById(R.id.imageView);
-
+            name =itemView.findViewById(R.id.name);
         }
     }
-
+ 
 }
